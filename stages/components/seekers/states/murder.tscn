@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://drpg3hnovqgw7"]
+
+[ext_resource type="Script" path="res://stages/components/seekers/states/murder.gd" id="1_uyhwb"]
+
+[node name="Murder" type="Node"]
+script = ExtResource("1_uyhwb")

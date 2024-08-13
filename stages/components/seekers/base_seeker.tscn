@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://0dwsnu2d5d0u"]
+
+[ext_resource type="Script" path="res://stages/components/seekers/base_seeker.gd" id="1_1fx5g"]
+[ext_resource type="Texture2D" uid="uid://boh5ia4q8ls7e" path="res://stages/components/seekers/seeker_sprite.png" id="2_rjl0q"]
+[ext_resource type="PackedScene" uid="uid://rlv0ghsjoilh" path="res://stages/components/seekers/ray_spawn_line.tscn" id="3_ig434"]
+[ext_resource type="Script" path="res://stages/components/seekers/seeker_states.gd" id="4_v5pdt"]
+[ext_resource type="PackedScene" uid="uid://b2xcq50gav04n" path="res://stages/components/seekers/states/patrol.tscn" id="5_26jty"]
+[ext_resource type="PackedScene" uid="uid://drpg3hnovqgw7" path="res://stages/components/seekers/states/murder.tscn" id="6_s1dil"]
+
+[node name="BaseSeeker" type="Node2D"]
+script = ExtResource("1_1fx5g")
+
+[node name="SeekerViewPolygon" type="Polygon2D" parent="."]
+color = Color(1, 0, 0, 1)
+polygon = PackedVector2Array(0, 0, 12, -24, 200, -24, 200, 24, 12, 24)
+
+[node name="PolygonViewerNotifier" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -24)
+rect = Rect2(0, 0, 200, 48)
+
+[node name="SeekerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_rjl0q")
+
+[node name="Rays" type="Node2D" parent="."]
+
+[node name="RaySpawnLine" parent="." instance=ExtResource("3_ig434")]
+
+[node name="SeekerCycleTime" type="Timer" parent="."]
+
+[node name="KillLine" type="Node2D" parent="."]
+
+[node name="SeekerStates" type="Node" parent="."]
+script = ExtResource("4_v5pdt")
+
+[node name="Patrol" parent="SeekerStates" instance=ExtResource("5_26jty")]
+
+[node name="Murder" parent="SeekerStates" instance=ExtResource("6_s1dil")]
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -23.0
+offset_top = -43.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "STATE"

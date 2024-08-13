@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://csdv4nrg6a65g"]
+
+[sub_resource type="GDScript" id="GDScript_v3n30"]
+script/source = "extends State
+
+var kill_complete: bool = false
+
+func update(delta: float) -> State:
+	if kill_complete:
+		# TODO: Move to SignalBus
+		player.change_state(player.get_state(\"kill\"))
+		return states.patrol
+	return null
+
+
+func enter_state() -> void:
+	pass
+"
+
+[node name="Kill" type="Node"]
+script = SubResource("GDScript_v3n30")

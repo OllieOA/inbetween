@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://rlv0ghsjoilh"]
+
+[ext_resource type="Script" path="res://stages/components/seekers/ray_spawn_line.gd" id="1_vhduy"]
+
+[node name="RaySpawnLine" type="Line2D"]
+points = PackedVector2Array(12, -24, 0, 0, 12, 24)
+width = 1.0
+default_color = Color(1, 0, 1, 1)
+script = ExtResource("1_vhduy")

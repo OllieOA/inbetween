@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfrs15catt16b"]
+
+[ext_resource type="Script" path="res://player/states/caught.gd" id="1_1bt8w"]
+
+[node name="Caught" type="Node"]
+script = ExtResource("1_1bt8w")

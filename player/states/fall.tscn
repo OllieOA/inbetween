@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cfcaaelqtyrqq"]
+
+[ext_resource type="Script" path="res://player/states/fall.gd" id="1_cfmg5"]
+
+[node name="Fall" type="Node"]
+script = ExtResource("1_cfmg5")
+
+[node name="CoyoteTimer" type="Timer" parent="."]

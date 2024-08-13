@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkgafwl7qoylo"]
+
+[ext_resource type="Shader" path="res://common/negative_shader_with_region.gdshader" id="1_f3xl0"]
+[ext_resource type="Script" path="res://player/player_camera.gd" id="1_vnfpd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c7qk6"]
+shader = ExtResource("1_f3xl0")
+
+[node name="PlayerCamera" type="Camera2D"]
+script = ExtResource("1_vnfpd")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="NegativeShader" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_c7qk6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ucp2vu4gj343"]
+
+[ext_resource type="Script" path="res://player/states/slide.gd" id="1_81xve"]
+
+[node name="Slide" type="Node"]
+script = ExtResource("1_81xve")

@@ -1,0 +1,150 @@
+[gd_scene load_steps=21 format=3 uid="uid://beh3pcuvwk2tj"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_fyr3b"]
+[ext_resource type="PackedScene" uid="uid://1ut41q8geen2" path="res://player/states/idle.tscn" id="3_7s6qx"]
+[ext_resource type="Script" path="res://player/states.gd" id="3_cfiw0"]
+[ext_resource type="Texture2D" uid="uid://cjq8tg74l6743" path="res://player/art/base_player.png" id="3_tou16"]
+[ext_resource type="PackedScene" uid="uid://dr20rg6yfw6xk" path="res://player/states/move.tscn" id="4_spths"]
+[ext_resource type="PackedScene" uid="uid://d1q83te0kn04a" path="res://player/states/jump.tscn" id="5_tc8xs"]
+[ext_resource type="PackedScene" uid="uid://cfcaaelqtyrqq" path="res://player/states/fall.tscn" id="6_vqrbq"]
+[ext_resource type="PackedScene" uid="uid://bhdowgso35fim" path="res://player/states/dash.tscn" id="8_btrr1"]
+[ext_resource type="PackedScene" uid="uid://ucp2vu4gj343" path="res://player/states/slide.tscn" id="9_ny3sk"]
+[ext_resource type="PackedScene" uid="uid://dyny54lmkm3n8" path="res://player/states/hide.tscn" id="10_cxjmg"]
+[ext_resource type="PackedScene" uid="uid://dkgafwl7qoylo" path="res://player/player_camera.tscn" id="11_sb5t6"]
+[ext_resource type="PackedScene" uid="uid://bsxleambs1r7j" path="res://player/states/kill.tscn" id="11_van3l"]
+[ext_resource type="Script" path="res://player/DebugCanvas.gd" id="12_2h26q"]
+[ext_resource type="PackedScene" uid="uid://cfrs15catt16b" path="res://player/states/caught.tscn" id="12_o6ld0"]
+[ext_resource type="Texture2D" uid="uid://dy48qtuuv0gir" path="res://common/radial_progress.png" id="13_7eyi3"]
+[ext_resource type="Texture2D" uid="uid://d2na5pjeyn7im" path="res://common/inner_radial_progress.png" id="14_43hnd"]
+[ext_resource type="Texture2D" uid="uid://c2ljr512ydklg" path="res://player/art/player_light.png" id="14_awpo2"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gcj8o"]
+light_mode = 1
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wq73h"]
+radius = 5.0
+height = 14.0
+
+[sub_resource type="Gradient" id="Gradient_vktom"]
+offsets = PackedFloat32Array(0.857692, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 8
+collision_mask = 6
+script = ExtResource("1_fyr3b")
+
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_gcj8o")
+texture = ExtResource("3_tou16")
+hframes = 6
+
+[node name="PlayerBody" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wq73h")
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("3_cfiw0")
+
+[node name="Idle" parent="States" instance=ExtResource("3_7s6qx")]
+
+[node name="Move" parent="States" instance=ExtResource("4_spths")]
+
+[node name="Jump" parent="States" instance=ExtResource("5_tc8xs")]
+
+[node name="Fall" parent="States" instance=ExtResource("6_vqrbq")]
+
+[node name="Dash" parent="States" instance=ExtResource("8_btrr1")]
+
+[node name="Slide" parent="States" instance=ExtResource("9_ny3sk")]
+
+[node name="Hide" parent="States" instance=ExtResource("10_cxjmg")]
+
+[node name="Kill" parent="States" instance=ExtResource("11_van3l")]
+
+[node name="Caught" parent="States" instance=ExtResource("12_o6ld0")]
+
+[node name="StateLabel" type="Label" parent="."]
+offset_left = -23.0
+offset_top = -43.0
+offset_right = 24.0
+offset_bottom = -20.0
+text = "STATE"
+
+[node name="Casts" type="Node2D" parent="."]
+
+[node name="TopRight" type="RayCast2D" parent="Casts"]
+position = Vector2(0, -5)
+target_position = Vector2(13, 0)
+collision_mask = 6
+
+[node name="TopLeft" type="RayCast2D" parent="Casts"]
+position = Vector2(0, -5)
+target_position = Vector2(-13, 0)
+collision_mask = 6
+
+[node name="BottomRight" type="RayCast2D" parent="Casts"]
+position = Vector2(0, 5)
+target_position = Vector2(13, 0)
+collision_mask = 6
+
+[node name="BottomLeft" type="RayCast2D" parent="Casts"]
+position = Vector2(0, 5)
+target_position = Vector2(-13, 0)
+collision_mask = 6
+
+[node name="PlayerCamera" parent="." instance=ExtResource("11_sb5t6")]
+
+[node name="DebugCanvas" type="CanvasLayer" parent="."]
+visible = false
+script = ExtResource("12_2h26q")
+
+[node name="TextureRect" type="TextureRect" parent="DebugCanvas"]
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.125, 0.125)
+
+[node name="HideProgress" type="TextureProgressBar" parent="."]
+offset_left = -8.0
+offset_top = -22.0
+offset_right = 8.0
+offset_bottom = -6.0
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("13_7eyi3")
+
+[node name="DashProgress" type="TextureProgressBar" parent="."]
+modulate = Color(0, 0.333333, 1, 1)
+offset_left = -8.0
+offset_top = -22.0
+offset_right = 8.0
+offset_bottom = -6.0
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = ExtResource("14_43hnd")
+
+[node name="HideEmitter" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 10
+lifetime = 0.2
+randomness = 0.1
+emission_shape = 1
+emission_sphere_radius = 8.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_max = 2.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+orbit_velocity_min = -0.2
+orbit_velocity_max = 0.2
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 5.0
+scale_amount_max = 5.0
+color = Color(0, 0, 0, 1)
+color_ramp = SubResource("Gradient_vktom")
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+texture = ExtResource("14_awpo2")

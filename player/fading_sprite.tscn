@@ -1,0 +1,12 @@
+[gd_scene load_steps=4 format=3 uid="uid://dmnx4bde01sx3"]
+
+[ext_resource type="Texture2D" uid="uid://cjq8tg74l6743" path="res://player/art/base_player.png" id="1_it32w"]
+[ext_resource type="Script" path="res://player/fading_sprite.gd" id="1_u2pei"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_wuncg"]
+light_mode = 1
+
+[node name="FadingSprite" type="Sprite2D"]
+material = SubResource("CanvasItemMaterial_wuncg")
+texture = ExtResource("1_it32w")
+script = ExtResource("1_u2pei")

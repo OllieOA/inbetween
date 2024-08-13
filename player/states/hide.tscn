@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyny54lmkm3n8"]
+
+[ext_resource type="Script" path="res://player/states/hide.gd" id="1_pn135"]
+
+[node name="Hide" type="Node"]
+script = ExtResource("1_pn135")

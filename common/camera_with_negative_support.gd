@@ -1,0 +1,1 @@
+class_name CameraWithNegativeSupport extends Camera2D
