@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch4go6ucl3vgk"]
+
+[ext_resource type="Script" path="res://stages/components/doors/scene_pit.gd" id="1_6gkps"]
+[ext_resource type="Script" path="res://stages/levels/falling_line_generator.gd" id="2_bcq2a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mbf25"]
+size = Vector2(192, 96)
+
+[node name="ScenePit" type="Node2D"]
+script = ExtResource("1_6gkps")
+
+[node name="ExitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="ExitCollider" type="CollisionShape2D" parent="ExitArea"]
+shape = SubResource("RectangleShape2D_mbf25")
+
+[node name="FallingLineGenerator" type="Node2D" parent="."]
+visible = false
+script = ExtResource("2_bcq2a")

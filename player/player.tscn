@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://beh3pcuvwk2tj"]
+[gd_scene load_steps=28 format=3 uid="uid://beh3pcuvwk2tj"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_fyr3b"]
+[ext_resource type="Shader" path="res://stages/components/seekers/sub_pixel_smoother.gdshader" id="2_am6fu"]
 [ext_resource type="PackedScene" uid="uid://1ut41q8geen2" path="res://player/states/idle.tscn" id="3_7s6qx"]
 [ext_resource type="Script" path="res://player/states.gd" id="3_cfiw0"]
 [ext_resource type="Texture2D" uid="uid://cjq8tg74l6743" path="res://player/art/base_player.png" id="3_tou16"]
@@ -17,25 +18,92 @@
 [ext_resource type="Texture2D" uid="uid://dy48qtuuv0gir" path="res://common/radial_progress.png" id="13_7eyi3"]
 [ext_resource type="Texture2D" uid="uid://d2na5pjeyn7im" path="res://common/inner_radial_progress.png" id="14_43hnd"]
 [ext_resource type="Texture2D" uid="uid://c2ljr512ydklg" path="res://player/art/player_light.png" id="14_awpo2"]
+[ext_resource type="PackedScene" uid="uid://clu2rejsiclai" path="res://player/dialogue/dialogue_display.tscn" id="14_k2vxc"]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_gcj8o"]
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_12ve8"]
 light_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x0nk0"]
+shader = ExtResource("2_am6fu")
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wq73h"]
 radius = 5.0
 height = 14.0
 
 [sub_resource type="Gradient" id="Gradient_vktom"]
-offsets = PackedFloat32Array(0.857692, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+offsets = PackedFloat32Array(0.91195, 1)
+colors = PackedColorArray(0.862745, 0.862745, 0.862745, 1, 0, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_o6x35"]
+resource_name = "fall"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.25, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, -2, 1, -2, 1),
+"update": 0,
+"values": [0.0, -0.0872665, 0.0, 0.0872665, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_vrs2r"]
+resource_name = "move_left"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.174533, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_u3qvh"]
+resource_name = "move"
+length = 0.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerSprite:skew")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.15, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.174533, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yq6vi"]
+_data = {
+"fall": SubResource("Animation_o6x35"),
+"move_left": SubResource("Animation_vrs2r"),
+"move_right": SubResource("Animation_u3qvh")
+}
 
 [node name="Player" type="CharacterBody2D"]
+material = SubResource("CanvasItemMaterial_12ve8")
 collision_layer = 8
 collision_mask = 6
 script = ExtResource("1_fyr3b")
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
-material = SubResource("CanvasItemMaterial_gcj8o")
+texture_filter = 2
+material = SubResource("ShaderMaterial_x0nk0")
 texture = ExtResource("3_tou16")
 hframes = 6
 
@@ -65,6 +133,7 @@ script = ExtResource("3_cfiw0")
 [node name="Caught" parent="States" instance=ExtResource("12_o6ld0")]
 
 [node name="StateLabel" type="Label" parent="."]
+visible = false
 offset_left = -23.0
 offset_top = -43.0
 offset_right = 24.0
@@ -94,6 +163,8 @@ target_position = Vector2(-13, 0)
 collision_mask = 6
 
 [node name="PlayerCamera" parent="." instance=ExtResource("11_sb5t6")]
+
+[node name="DialogueDisplay" parent="PlayerCamera" instance=ExtResource("14_k2vxc")]
 
 [node name="DebugCanvas" type="CanvasLayer" parent="."]
 visible = false
@@ -146,5 +217,56 @@ scale_amount_max = 5.0
 color = Color(0, 0, 0, 1)
 color_ramp = SubResource("Gradient_vktom")
 
+[node name="LandEmitterL" type="CPUParticles2D" parent="."]
+position = Vector2(-5, 5)
+emitting = false
+amount = 2
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+direction = Vector2(-1, -0.5)
+spread = 20.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 200.0
+initial_velocity_max = 240.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+orbit_velocity_min = -0.2
+orbit_velocity_max = 0.2
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_vktom")
+
+[node name="LandEmitterR" type="CPUParticles2D" parent="."]
+position = Vector2(5, 5)
+emitting = false
+amount = 2
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+randomness = 0.1
+direction = Vector2(1, -0.5)
+spread = 20.0
+gravity = Vector2(0, 500)
+initial_velocity_min = 200.0
+initial_velocity_max = 240.0
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+orbit_velocity_min = -0.2
+orbit_velocity_max = 0.2
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_vktom")
+
 [node name="PlayerLight" type="PointLight2D" parent="."]
 texture = ExtResource("14_awpo2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_yq6vi")
+}

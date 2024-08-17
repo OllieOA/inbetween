@@ -11,6 +11,12 @@ class_name Player extends CharacterBody2D
 @onready var hide_emitter: CPUParticles2D = $HideEmitter
 @onready var hide_progress: TextureProgressBar = $HideProgress
 @onready var dash_progress: TextureProgressBar = $DashProgress
+@onready var dialogue_display: CanvasLayer = $PlayerCamera/DialogueDisplay
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready var land_emitter_l: CPUParticles2D = $LandEmitterL
+@onready var land_emitter_r: CPUParticles2D = $LandEmitterR
+
 
 # states
 var curr_state: State = null
@@ -21,6 +27,8 @@ var movement_input: Vector2 = Vector2.ZERO
 var jump_input: bool = false
 var jump_input_actuation: bool = false
 var hide_input: bool = false
+var block_hide_input: bool = false
+var block_jump_input: bool = false
 var dash_input: bool = false 
 var dash_input_actuation: bool = false
 
@@ -57,7 +65,19 @@ var wall_grab_buffer: float = 0.5
 
 # CAUGHT AND DEATH
 var kill_position: Vector2 = Vector2.ZERO
+var drag_position: Vector2 = Vector2.ZERO
 var is_caught: bool = false
+
+# DIALOGUE
+var is_in_dialogue: bool = false
+signal dialogue_completed
+var can_gravity: bool = true
+var camera_override_active: bool = false
+var camera_height: float = 40.0
+var camera_position_target: Vector2 = Vector2.ZERO
+var mouse_bias: Vector2 = Vector2.ZERO
+var max_mouse_bias: float = 300.0
+var enable_mouse_bias: bool = false
 #endregion
 
 # movement
@@ -101,7 +121,7 @@ func _ready() -> void:
 	for state in states.get_children():
 		state.states = states
 		state.player = self
-	curr_state = states.idle
+	curr_state = states.fall
 	for cast in casts.get_children():
 		cast_refs.append(cast)
 	
@@ -131,10 +151,18 @@ func _ready() -> void:
 	dash_progress.max_value = dash_cooldown
 	
 	PlayerLocationCache.player_ref = self
+	SignalBus.player_caught.connect(_on_player_caught)
 
 
 func _process(delta: float) -> void:
-	player_camera.offset = lerp(player_camera.offset, camera_offset * last_direction, 0.2)
+	if not camera_override_active:
+		mouse_bias = Vector2.ZERO
+		var mouse_dist = get_global_mouse_position().distance_to(global_position)
+		var mouse_dir = get_global_mouse_position().direction_to(global_position)
+		if enable_mouse_bias:
+			mouse_bias = Vector2(clamp(mouse_dist, 0, max_mouse_bias), 0).rotated(mouse_dir.angle())
+		camera_position_target = camera_offset * last_direction - Vector2(0, camera_height) - mouse_bias
+		player_camera.set_new_offset(camera_position_target)
 	hide_progress.value = curr_hide_time
 	dash_progress.value = dash_cooldown_timer.time_left
 	
@@ -189,14 +217,14 @@ func player_input():
 	dash_input = false
 	dash_input_actuation = false
 	hide_input = false
+	enable_mouse_bias = false
 	
 	movement_input.x += Input.get_axis("move_left", "move_right")
-	movement_input.y += Input.get_axis("move_up", "move_down")
 	
 	# Jumps
-	if Input.is_action_pressed("jump"):
+	if Input.is_action_pressed("jump") and not block_jump_input:
 		jump_input = true
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and not block_jump_input:
 		jump_input_actuation = true
 
 	# Dash
@@ -204,14 +232,23 @@ func player_input():
 		check_dash(Vector2.LEFT)
 	if Input.is_action_just_pressed("move_right") and can_dash:
 		check_dash(Vector2.RIGHT)
-		
 	
 	# Hide
-	if Input.is_action_pressed("hide"):
+	if Input.is_action_pressed("hide") and not block_hide_input:
 		hide_input = true
+
+	# Reset
+	if Input.is_action_just_pressed("restart") and not SceneManager.in_hub:
+		SceneManager.change_scene_to(SceneManager.curr_scene)
+	
+	# Inspect
+	if Input.is_action_pressed("inspect") and not SceneManager.in_hub:
+		enable_mouse_bias = true
 
 
 func player_movement(delta: float):
+	if not can_move:
+		return
 	acceleration = Vector2.ZERO
 	# Horizontal
 	if movement_input.x > 0 and can_move:
@@ -225,7 +262,7 @@ func player_movement(delta: float):
 	
 	# Vertical
 	gravity = modify_gravity(default_gravity)
-	if not is_on_floor():
+	if not is_on_floor() and can_gravity:
 		acceleration.y = gravity
 	
 	# Summarise
@@ -246,6 +283,10 @@ func get_state(state_name: String) -> State:
 	return states.all_states.get(state_name, null)
 
 
+func get_state_name() -> String:
+	return curr_state.get_name().to_lower()
+
+
 func get_next_to_wall() -> Vector2:
 	for cast in cast_refs:
 		cast.force_raycast_update()
@@ -257,7 +298,7 @@ func get_next_to_wall() -> Vector2:
 	return Vector2.ZERO
 
 
-func check_dash(test_dash_direction) -> void:
+func check_dash(test_dash_direction: Vector2) -> void:
 	if not dash_buffer_timer.is_stopped() and test_dash_direction == curr_dash_direction and can_dash:
 		dash_buffer_timer.stop()
 		change_state(states.dash)
@@ -309,6 +350,20 @@ func modify_gravity(curr_gravity: float) -> float:
 	return curr_gravity
 
 
+func play_land_particles() -> void:
+	land_emitter_l.emitting = true
+	land_emitter_r.emitting = true
+
+
+func set_camera_override(new_offset: Vector2) -> void:
+	player_camera.set_new_offset(new_offset)
+	camera_override_active = true
+
+
+func remove_camera_override() -> void:
+	camera_override_active = false
+
+
 func _on_dash_cooltime_timeout() -> void:
 	can_dash = true
 
@@ -316,6 +371,10 @@ func _on_dash_cooltime_timeout() -> void:
 func _on_wall_grab_timeout() -> void:
 	can_grab_wall = true
 
-	
+
+func _on_player_caught() -> void:
+	change_state(states.caught)
+
+
 func crash_next_frame():
 	OS.crash("intentionally killed")

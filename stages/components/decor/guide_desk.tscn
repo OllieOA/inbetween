@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cglkkvr4ty3m8"]
+
+[ext_resource type="Texture2D" uid="uid://cxbd1hdkvq4b5" path="res://entities/guide_seat.png" id="1_oa324"]
+[ext_resource type="Texture2D" uid="uid://we7u1aooq82e" path="res://entities/guide_seat_lightt.png" id="2_v7qu2"]
+
+[node name="GuideDesk" type="Node2D"]
+
+[node name="DeskSprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_oa324")
+
+[node name="DeskLight" type="PointLight2D" parent="."]
+texture = ExtResource("2_v7qu2")

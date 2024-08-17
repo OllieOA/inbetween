@@ -12,6 +12,11 @@ extends Node
 
 var all_states: Dictionary = {}
 
+
 func _ready() -> void:
 	for state in get_children():
-		all_states[state.get_name] = state
+		all_states[state.get_name()] = state
+
+
+func get_state_by_name(state_name: String) -> State:
+	return all_states.get(state_name, null)

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://xbm1ilhu6ur1"]
+
+[ext_resource type="PackedScene" uid="uid://c37mrkyyjbevl" path="res://stages/components/platforms/base_platform.tscn" id="1_0hg44"]
+[ext_resource type="Script" path="res://stages/components/platforms/standard_platform.gd" id="2_wb6l1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pqr4f"]
+size = Vector2(20, 12)
+
+[node name="StandardPlatform" instance=ExtResource("1_0hg44")]
+script = ExtResource("2_wb6l1")
+
+[node name="@Polygon2D@24473" type="Polygon2D" parent="GeneratedObjects" index="0"]
+position = Vector2(2, 2)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, 8, 0, 0, 16, 0, 16, 8)
+
+[node name="@Line2D@24474" type="Line2D" parent="GeneratedObjects" index="1"]
+points = PackedVector2Array(1.5, 10.5, 1.5, 1.5, 18.5, 1.5, 18.5, 10.5)
+closed = true
+width = 1.0
+default_color = Color(0.890196, 0.890196, 0.890196, 1)
+
+[node name="@Line2D@24475" type="Line2D" parent="GeneratedObjects" index="2"]
+points = PackedVector2Array(0.5, 11.5, 0.5, 0.5, 19.5, 0.5, 19.5, 11.5)
+closed = true
+width = 1.0
+
+[node name="PlatformCollider" parent="." index="2"]
+shape = SubResource("RectangleShape2D_pqr4f")

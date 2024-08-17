@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://clu2rejsiclai"]
+
+[ext_resource type="Script" path="res://player/dialogue/dialogue_display.gd" id="1_nri0c"]
+
+[node name="DialogueDisplay" type="CanvasLayer"]
+script = ExtResource("1_nri0c")

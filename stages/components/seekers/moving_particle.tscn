@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctrh62415jyp0"]
+
+[ext_resource type="Script" path="res://stages/components/seekers/moving_particle.gd" id="1_qr8jt"]
+
+[sub_resource type="Curve" id="Curve_ti7qa"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.809028, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="MovingParticle" type="CPUParticles2D"]
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+randomness = 0.2
+lifetime_randomness = 0.2
+direction = Vector2(0, -1)
+spread = 20.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 20.0
+initial_velocity_max = 40.0
+angle_min = -45.0
+angle_max = 45.0
+scale_amount_curve = SubResource("Curve_ti7qa")
+color = Color(0.864675, 0.864675, 0.864675, 1)
+script = ExtResource("1_qr8jt")

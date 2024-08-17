@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://crnbvj6lpalnt"]
+
+[ext_resource type="Texture2D" uid="uid://bhu4uchxnxnh6" path="res://common/scene_down_light.png" id="1_ya81v"]
+[ext_resource type="Texture2D" uid="uid://csc4myk3b8sb7" path="res://common/over_door_lamp.png" id="2_ywl45"]
+
+[node name="OverDoorLamp" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 30)
+texture = ExtResource("1_ya81v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ywl45")

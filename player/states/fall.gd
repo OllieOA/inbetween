@@ -46,6 +46,13 @@ func enter_state():
 		coyote_timer.start(coyote_duration)
 	if no_first_jump_states.has(player.prev_state):
 		player.jumps_available -= 1
+	player.animation_player.play("fall")
+
+
+func exit_state():
+	player.play_land_particles()
+	player.animation_player.stop()
+
 
 func _on_coyote_timer_timeout():
 	can_jump = false

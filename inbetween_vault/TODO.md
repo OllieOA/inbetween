@@ -9,7 +9,7 @@
 - [x] Add dash effect on double-tap
 - [x] Add dash cool down timer progress bar
 - [ ] Add kill state to player
-	- [ ] Force slight movement with push back to caught position
+	- [ ] Make panic animation
 
 ## Guide
 - [x] Draw guide sprite
@@ -17,8 +17,9 @@
 
 ## Seeker
 - [x] Update polygon to be collision-based
-- [ ] Add line attack (basic)
-- [ ] Add particle to collision
+- [x] Add line attack (basic)
+- [x] Add particle to collision
+- [ ] Add patrol tooling
 - [ ] Add 8-direction seeker (Can turn on/off rays)
 	- [ ] Needs new sprite (multi-eye)
 	- [x] Refactor beam creation to support multiple beams
@@ -26,17 +27,19 @@
 	- [ ] Needs new sprite
 - [ ] Add charger (blindly moves towards the last player location, then looks around with a short glance erratically)
 	- [ ] Needs new sprite
-- [ ] Fix bug with detecting the player - seems to be inconsistent
+- [x] Fix bug with detecting the player - seems to be inconsistent
 
 ## Level
+- [x] Make platform generator
 - [ ] Add platform - basic
 - [ ] Add platform - see through
 - [ ] Add platform - only visible in negative
 - [ ] Add platform - activated
 	- [ ] Add activation switch
+	- [ ] Make pattern and colour based
 
 ## General
 - [ ] Add sub-pixel movement shader to all sprites
 
 ## Juice
-- [ ] Make line attack like a forked tongue
+- [ ] Make line attack like a forked tongue with a little pause for drama

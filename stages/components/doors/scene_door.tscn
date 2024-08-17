@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://bn1ricsd7iabe"]
+
+[ext_resource type="Texture2D" uid="uid://bvbae346de3b4" path="res://stages/components/doors/scene_door.png" id="1_0xko1"]
+[ext_resource type="Script" path="res://stages/components/doors/scene_door.gd" id="1_6rsog"]
+[ext_resource type="Shader" path="res://stages/components/seekers/sub_pixel_smoother.gdshader" id="2_0a6do"]
+[ext_resource type="Texture2D" uid="uid://sqxlhwm7hxtx" path="res://stages/components/doors/scene_door_icons.png" id="2_g4j84"]
+[ext_resource type="PackedScene" uid="uid://crnbvj6lpalnt" path="res://stages/components/decor/over_door_lamp.tscn" id="4_i72y4"]
+[ext_resource type="FontFile" uid="uid://bh323cir6v8ww" path="res://common/TTF/dogicapixel.ttf" id="5_ir288"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_la5ol"]
+shader = ExtResource("2_0a6do")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ffs55"]
+size = Vector2(34, 35)
+
+[node name="SceneDoor" type="Node2D"]
+script = ExtResource("1_6rsog")
+
+[node name="DoorSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_la5ol")
+texture = ExtResource("1_0xko1")
+
+[node name="IconSprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_la5ol")
+texture = ExtResource("2_g4j84")
+hframes = 6
+
+[node name="ActivationArea" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationArea"]
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_ffs55")
+
+[node name="StatsLabel" type="Label" parent="."]
+offset_left = -34.0
+offset_top = -75.0
+offset_right = 34.0
+offset_bottom = -26.0
+theme_override_fonts/font = ExtResource("5_ir288")
+theme_override_font_sizes/font_size = 8
+text = "World 1
+Last: --:--
+Best: --:--"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="OverDoorLamp" parent="." instance=ExtResource("4_i72y4")]
+position = Vector2(0, -20)

@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0e0j3ckmwnhe"]
+
+[ext_resource type="Texture2D" uid="uid://btyxo5my243km" path="res://entities/guide.png" id="1_3q1b5"]
+[ext_resource type="Script" path="res://entities/guide.gd" id="1_djxtt"]
+[ext_resource type="Shader" path="res://stages/components/seekers/sub_pixel_smoother.gdshader" id="2_3uem7"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_dxigw"]
+light_mode = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3t1wb"]
+shader = ExtResource("2_3uem7")
+
+[node name="Guide" type="Node2D"]
+material = SubResource("CanvasItemMaterial_dxigw")
+script = ExtResource("1_djxtt")
+
+[node name="GuideSprite" type="Sprite2D" parent="."]
+texture_filter = 2
+material = SubResource("ShaderMaterial_3t1wb")
+texture = ExtResource("1_3q1b5")
+hframes = 2
+frame = 1

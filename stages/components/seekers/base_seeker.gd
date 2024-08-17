@@ -4,12 +4,16 @@ class_name BaseSeeker extends Node2D
 @onready var polygon_viewer_notifier: VisibleOnScreenNotifier2D = $PolygonViewerNotifier
 @onready var rays: Node2D = $Rays
 @onready var ray_spawn_line: Line2D = $RaySpawnLine
-@onready var seeker_cycle_time: Timer = $SeekerCycleTime
 @onready var state_label: Label = $StateLabel
 @onready var seeker_states: Node = $SeekerStates
 
+@onready var particles: Node2D = $Particles
+
+
 var global_polygon_points: PackedVector2Array = []
+var end_beam_points: Array[Vector2] = []
 var ray_refs: Array[RayCast2D] = []
+var kill_line_refs: Array[Line2D]
 
 enum CollisionLayers {
 	DEFAULT = 1,
@@ -26,7 +30,8 @@ var min_num_rays: int = 10
 var max_angle: float = 0.0
 var view_distance: float = 1000.0
 
-var drag_speed: float = 10.0
+var drag_speed: float = 1000.0
+var drag_point: Vector2
 
 var curr_state: State = null
 var prev_state: State = null
@@ -45,10 +50,10 @@ func _ready() -> void:
 	seeker_view_polygon.color = Color(255, 255, 255, 0)
 	build_rays()
 	ray_spawn_line.hide()
-	if cycle_time > 0.0:
-		seeker_cycle_time.one_shot = false
-		seeker_cycle_time.wait_time = cycle_time
-		seeker_cycle_time.start()
+	
+	for particle_emitter in particles.get_children():
+		particle_emitter.parent_ref = self
+		particle_emitter.start_emitting()
 
 
 func build_rays() -> void:
@@ -109,8 +114,10 @@ func get_polygon_points() -> PackedVector2Array:
 func update_polygon() -> void:
 	var new_polygon_points: PackedVector2Array = []
 	var new_polygon_points_global: PackedVector2Array = []
+	var new_end_beam_points_global: Array[Vector2] = []
 	for point in ray_spawn_line.points:
 		new_polygon_points.append(point)
+		new_polygon_points_global.append(to_global(point))
 	var collision_point: Vector2 = Vector2.ZERO
 	var collision_normal: Vector2 = Vector2.ZERO
 	for idx in range(len(ray_spawn_line.points)-1, -1, -1):
@@ -118,9 +125,11 @@ func update_polygon() -> void:
 		collision_normal = ray_refs[idx].get_collision_normal()
 		new_polygon_points_global.append(collision_point)
 		new_polygon_points.append(to_local(collision_point))
+		new_end_beam_points_global.append(collision_point)
 	
 	seeker_view_polygon.polygon = new_polygon_points
 	global_polygon_points = new_polygon_points_global
+	end_beam_points = new_end_beam_points_global
 	
 	var min_view_rect_x: float = 1e6
 	var min_view_rect_y: float = 1e6
@@ -148,17 +157,43 @@ func update_polygon() -> void:
 func check_if_player_in_view() -> bool:
 	for point in PlayerLocationCache.player_test_points:
 		if Geometry2D.is_point_in_polygon(point, global_polygon_points):
-			print(str(point), " IS IN ", str(global_polygon_points))
 			return true
 	return false
 
 
 func build_kill_line() -> void:
+	kill_line_refs = []
 	var target_point: Vector2 = to_local(PlayerLocationCache.player_ref.global_position)
 	var new_line = Line2D.new()
-	new_line.points = [position, target_point.rotated(-rotation)]
+	new_line.points = [to_local(global_position), target_point]
 	new_line.width = 5
 	new_line.default_color = Color.RED
 	new_line.material = CanvasItemMaterial.new()
 	new_line.material.light_mode = CanvasItemMaterial.LIGHT_MODE_UNSHADED
 	add_child(new_line)
+	kill_line_refs.append(new_line)
+
+
+func reel_kill_line(delta: float) -> Vector2:
+	var new_drag_point: Vector2 = global_position
+	# TODO: Replace with verlet chain
+	for line in kill_line_refs:
+		var anchor_point = line.points[0]
+		var outer_point = line.points[-1]
+		var curr_dist = anchor_point.distance_to(outer_point)
+		if curr_dist < (delta * drag_speed):
+			line.hide()
+			return new_drag_point
+		
+		#line.points = [anchor_point, new_outer_point]
+		line.points = [anchor_point, to_local(PlayerLocationCache.player_test_points[0])]
+		var new_outer_point = (curr_dist - (delta * drag_speed)) * anchor_point.direction_to(outer_point)
+		new_drag_point = new_outer_point
+	return to_global(new_drag_point)
+
+
+func get_global_line_points(line: Line2D) -> PackedVector2Array:
+	var global_line_points = []
+	for point in line.points:
+		global_line_points.append(to_global(point))
+	return global_line_points

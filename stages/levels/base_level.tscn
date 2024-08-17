@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://ynpo60ns4n5n"]
+
+[ext_resource type="PackedScene" uid="uid://h3r8uu714dt7" path="res://stages/components/tilemaps/base_level_tiles.tscn" id="1_v6ore"]
+[ext_resource type="PackedScene" uid="uid://beh3pcuvwk2tj" path="res://player/player.tscn" id="2_n1pfv"]
+
+[node name="BaseLevel" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+offset_left = -1264.0
+offset_top = -362.0
+offset_right = 2635.0
+offset_bottom = 2489.0
+color = Color(0.064697, 0.0646964, 0.0646964, 1)
+
+[node name="BaseLevelTiles" parent="." instance=ExtResource("1_v6ore")]
+
+[node name="WorldEnvironment" type="CanvasModulate" parent="."]
+color = Color(0.454524, 0.454524, 0.454524, 1)
+
+[node name="Decor" type="Node2D" parent="."]
+
+[node name="Doors" type="Node2D" parent="."]
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Player" parent="." instance=ExtResource("2_n1pfv")]
+
+[node name="Seekers" type="Node2D" parent="."]

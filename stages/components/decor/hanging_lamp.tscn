@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://46deti83n4un"]
+
+[ext_resource type="Texture2D" uid="uid://dv6j2rtom88ma" path="res://common/hanging_lamp.png" id="1_cuavf"]
+[ext_resource type="Texture2D" uid="uid://bm5b5lmmhpktv" path="res://common/scene_small_light.png" id="2_ms445"]
+
+[node name="HangingLamp" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cuavf")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+position = Vector2(0, 6)
+texture = ExtResource("2_ms445")
