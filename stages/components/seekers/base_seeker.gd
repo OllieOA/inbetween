@@ -77,7 +77,6 @@ func build_rays() -> void:
 	for idx in len(ray_spawn_line.points):
 		var new_ray: RayCast2D = RayCast2D.new()
 		new_ray.position = ray_spawn_line.points[idx]
-		# TODO, handle angles
 		new_ray.target_position = Vector2(1000, 0)
 		new_ray.set_collision_mask_value(CollisionLayers.WALLS, true)
 		new_ray.set_collision_mask_value(CollisionLayers.PLATFORMS, true)

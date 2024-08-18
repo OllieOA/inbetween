@@ -32,6 +32,9 @@ property_name = 0
 sub_components = Array[ExtResource("5_3ai0a")]([SubResource("Resource_e0hvw"), SubResource("Resource_mvmqh")])
 
 [node name="World1Level4" instance=ExtResource("1_2uvb2")]
+tips = Array[String](["Time for you to meet the Seekers!", "Maybe a creature, maybe a machine. Whatever it is, anything that touches its light is food.", "Press S or Down to hide from them when you are in their beam!", "But your smokescreen will run out. Don't overuse it.."])
+world_num = 1
+level_num = 4
 
 [node name="Background" parent="." index="0"]
 offset_left = -1255.0

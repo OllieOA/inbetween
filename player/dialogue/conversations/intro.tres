@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="BaseConversation" load_steps=15 format=3 uid="uid://56rtti7v3m4i"]
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=18 format=3 uid="uid://56rtti7v3m4i"]
 
 [ext_resource type="Script" path="res://player/dialogue/base_dialogue.gd" id="1_pg08p"]
 [ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_tosei"]
@@ -31,7 +31,12 @@ dialogue = "Nevermind. You are in the Inbetween. The mighty powers that be can't
 [sub_resource type="Resource" id="Resource_b3jnp"]
 script = ExtResource("1_pg08p")
 speaker = 1
-dialogue = "So! They have devised these tests to cover off the parts of your life that they can't make a decision on. For you, this seems to be.. critical thinking and problem solving!"
+dialogue = "So! They have devised these tests to cover off the parts of your life that they can't make a decision on."
+
+[sub_resource type="Resource" id="Resource_jvadi"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "For you, this seems to be.. critical thinking and problem solving!"
 
 [sub_resource type="Resource" id="Resource_0jt1i"]
 script = ExtResource("1_pg08p")
@@ -41,7 +46,12 @@ dialogue = "What does that have to do with morality? And why is limbo guarded by
 [sub_resource type="Resource" id="Resource_w5smw"]
 script = ExtResource("1_pg08p")
 speaker = 1
-dialogue = "I do not have the slightest idea what you mean on all of those points. Just prove to them that you can solve some problems and you can get out of here."
+dialogue = "I do not have the slightest idea what you mean by any of those questions."
+
+[sub_resource type="Resource" id="Resource_qp08r"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "Just prove to them that you can solve some problems and you can get out of here."
 
 [sub_resource type="Resource" id="Resource_q6lrv"]
 script = ExtResource("1_pg08p")
@@ -51,7 +61,12 @@ dialogue = "To heaven?"
 [sub_resource type="Resource" id="Resource_wgtv8"]
 script = ExtResource("1_pg08p")
 speaker = 1
-dialogue = "Yeah maybe. Just go in through those doors and do the puzzles or whatever. I'm going to have some breadcrumbs, but I'll keep an eye on you."
+dialogue = "Yeah maybe. Just go in through those doors and do the puzzles or whatever. "
+
+[sub_resource type="Resource" id="Resource_a2dfg"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "I'm going to have some breadcrumbs, but I'll keep an eye on you."
 
 [sub_resource type="Resource" id="Resource_le2wd"]
 script = ExtResource("1_pg08p")
@@ -65,4 +80,4 @@ dialogue = "What?"
 
 [resource]
 script = ExtResource("1_tosei")
-conversation = Array[ExtResource("1_pg08p")]([SubResource("Resource_dbbkk"), SubResource("Resource_3br0y"), SubResource("Resource_oioyc"), SubResource("Resource_7wcb5"), SubResource("Resource_yt28y"), SubResource("Resource_b3jnp"), SubResource("Resource_0jt1i"), SubResource("Resource_w5smw"), SubResource("Resource_q6lrv"), SubResource("Resource_wgtv8"), SubResource("Resource_le2wd"), SubResource("Resource_h40k4")])
+conversation = Array[ExtResource("1_pg08p")]([SubResource("Resource_dbbkk"), SubResource("Resource_3br0y"), SubResource("Resource_oioyc"), SubResource("Resource_7wcb5"), SubResource("Resource_yt28y"), SubResource("Resource_b3jnp"), SubResource("Resource_jvadi"), SubResource("Resource_0jt1i"), SubResource("Resource_w5smw"), SubResource("Resource_qp08r"), SubResource("Resource_q6lrv"), SubResource("Resource_wgtv8"), SubResource("Resource_a2dfg"), SubResource("Resource_le2wd"), SubResource("Resource_h40k4")])

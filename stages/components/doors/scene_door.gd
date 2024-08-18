@@ -17,11 +17,14 @@ var door_num_lookup: Dictionary = {
 @export var door_num: int = 0
 @export var exit_door: bool
 @export var next_scene: String
-@export var overhead_text: String
+@export_multiline var overhead_text: String
 
 var can_be_activated: bool = false
 var door_active: bool = false
- 
+
+var world_ref: int
+var level_ref: int
+
 @onready var door_sprite: Sprite2D = $DoorSprite
 @onready var icon_sprite: Sprite2D = $IconSprite
 @onready var stats_label: Label = $StatsLabel

@@ -23,9 +23,10 @@ func change_scene_to(next_scene: String) -> void:
 
 
 func _change_scene() -> void:
-	var fade_tween = get_tree().create_tween()
 	get_tree().change_scene_to_file(transition_level)
+	await get_tree().create_timer(0.1).timeout
 	get_tree().change_scene_to_file(target_scene)
+	var fade_tween = get_tree().create_tween()
 	fade_tween.tween_property(color_rect, "color", Color(0, 0, 0, 0), scene_trans_time)
 	fade_tween.play()
 	if target_scene == hub_world:

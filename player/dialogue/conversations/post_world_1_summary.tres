@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=6 format=3 uid="uid://dgnhqgrfpvryi"]
+
+[ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_mlh68"]
+[ext_resource type="Script" path="res://player/dialogue/base_dialogue.gd" id="1_o3jmx"]
+
+[sub_resource type="Resource" id="Resource_e506c"]
+script = ExtResource("1_o3jmx")
+speaker = 1
+dialogue = "Yeah apparently there were all these other ideas for platform types and seeker types.."
+
+[sub_resource type="Resource" id="Resource_836ew"]
+script = ExtResource("1_o3jmx")
+speaker = 1
+dialogue = "They were pretty much implemented and everything!"
+
+[sub_resource type="Resource" id="Resource_ts4xf"]
+script = ExtResource("1_o3jmx")
+speaker = 0
+dialogue = "Guess it was just too long building subclasses, not long enough building levels.."
+
+[resource]
+script = ExtResource("1_mlh68")
+conversation = Array[ExtResource("1_o3jmx")]([SubResource("Resource_e506c"), SubResource("Resource_836ew"), SubResource("Resource_ts4xf")])

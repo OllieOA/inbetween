@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=9 format=3 uid="uid://b0xfu66gt3yb3"]
+
+[ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_2ai82"]
+[ext_resource type="Script" path="res://player/dialogue/base_dialogue.gd" id="1_rfna6"]
+
+[sub_resource type="Resource" id="Resource_k8j2u"]
+script = ExtResource("1_rfna6")
+speaker = 1
+dialogue = "Unfortunately, the one guy who was making these puzzles sent me a message.."
+
+[sub_resource type="Resource" id="Resource_x2kho"]
+script = ExtResource("1_rfna6")
+speaker = 0
+dialogue = "It's one guy?"
+
+[sub_resource type="Resource" id="Resource_8kj5p"]
+script = ExtResource("1_rfna6")
+speaker = 1
+dialogue = "He said that he \"ran out of time before the end of the jam,\" whatever that means.."
+
+[sub_resource type="Resource" id="Resource_0sxff"]
+script = ExtResource("1_rfna6")
+speaker = 1
+dialogue = "Apparently there aren't anymore trials!"
+
+[sub_resource type="Resource" id="Resource_ywhph"]
+script = ExtResource("1_rfna6")
+speaker = 1
+dialogue = "So I guess we can just... hang out? Or you could retry the ones that are there if you want."
+
+[sub_resource type="Resource" id="Resource_h1nin"]
+script = ExtResource("1_rfna6")
+speaker = 0
+dialogue = "Uh.. okay."
+
+[resource]
+script = ExtResource("1_2ai82")
+conversation = Array[ExtResource("1_rfna6")]([SubResource("Resource_k8j2u"), SubResource("Resource_x2kho"), SubResource("Resource_8kj5p"), SubResource("Resource_0sxff"), SubResource("Resource_ywhph"), SubResource("Resource_h1nin")])

@@ -5,9 +5,8 @@ signal single_dialogue_complete
 @onready var dialogue: Label = $MarginContainer/HBoxContainer/Dialogue
 @onready var next_icon: TextureRect = $MarginContainer/HBoxContainer/NextIcon
 
-var char_per_sec: float = 30.0
+var char_per_sec: float = 50.0
 var chars_to_show: float = 0.0
-var num_char: int = 0
 var dialogue_complete: bool = false
 var prompt_timer: Timer
 

@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://30a4drpcbyws"]
+
+[ext_resource type="StyleBox" uid="uid://cfx82iqqsx0mx" path="res://player/dialogue/dialogue_panel_style.tres" id="1_v5apj"]
+[ext_resource type="Script" path="res://entities/guide_panel.gd" id="2_4k2he"]
+[ext_resource type="Texture2D" uid="uid://c1otwbia1j1k7" path="res://entities/guide_portrait.png" id="2_bjanj"]
+[ext_resource type="FontFile" uid="uid://bh323cir6v8ww" path="res://common/TTF/dogicapixel.ttf" id="3_qi55x"]
+
+[node name="GuidePanel" type="PanelContainer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -38.0
+offset_right = 38.0
+grow_vertical = 0
+theme_override_styles/panel = ExtResource("1_v5apj")
+script = ExtResource("2_4k2he")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_bjanj")
+
+[node name="HintText" type="Label" parent="MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_qi55x")
+theme_override_font_sizes/font_size = 8
+vertical_alignment = 1
+autowrap_mode = 2
+visible_characters_behavior = 1

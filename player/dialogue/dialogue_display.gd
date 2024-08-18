@@ -1,9 +1,7 @@
 extends CanvasLayer
 
-signal conversation_complete
-
-const GUIDE_DIALOGUE_CENTER: Vector2 = Vector2(214, 200)
-const PLAYER_DIALOGUE_CENTER: Vector2 = Vector2(426, 160)
+const GUIDE_DIALOGUE_CENTER: Vector2 = Vector2(139, 200)
+const PLAYER_DIALOGUE_CENTER: Vector2 = Vector2(351, 50)
 const DIALOGUE_PANEL = preload("res://player/dialogue/dialogue_panel.tscn")
 
 var conversation: Array[BaseDialogue]
@@ -21,8 +19,8 @@ func play_next_dialogue() -> void:
 	if curr_dialogue != null:
 		curr_dialogue.queue_free()
 	conversation_idx += 1
-	if conversation_idx == len(conversation) - 1:
-		conversation_complete.emit()
+	if conversation_idx == len(conversation):
+		SignalBus.dialogue_complete.emit()
 		return
 	
 	var new_dialogue = DIALOGUE_PANEL.instantiate()

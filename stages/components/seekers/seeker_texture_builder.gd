@@ -19,6 +19,8 @@ func _process(delta: float) -> void:
 	polys = []
 	subtract_lines = []
 	for seeker in seekers:
+		if not is_instance_valid(seeker):
+			continue
 		if not seeker.polygon_viewer_notifier.is_on_screen():
 			continue
 		# Draw poly

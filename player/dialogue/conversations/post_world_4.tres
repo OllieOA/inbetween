@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=2 format=3 uid="uid://dowbmuirkgoo6"]
+
+[ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_s4etp"]
+
+[resource]
+script = ExtResource("1_s4etp")
+conversation = Array[Resource("res://player/dialogue/base_dialogue.gd")]([])

@@ -153,7 +153,7 @@ func _ready() -> void:
 	PlayerLocationCache.player_ref = self
 	SignalBus.player_caught.connect(_on_player_caught)
 	SignalBus.dialogue_triggered.connect(_on_dialogue_triggered)
-	dialogue_display.conversation_complete.connect(_on_conversation_complete)
+	SignalBus.dialogue_complete.connect(_on_conversation_complete)
 
 
 func _process(delta: float) -> void:
@@ -367,7 +367,6 @@ func set_camera_override(new_offset: Vector2) -> void:
 
 
 func remove_camera_override() -> void:
-	print("REMOVING CAMERA OVERRIDE")
 	camera_override_active = false
 
 

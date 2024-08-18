@@ -4,7 +4,7 @@ extends Node2D
 @onready var start_button: TextureButton = $StartButton/StartButton
 @onready var title: TextureRect = $StartButton/Title
 
-@onready var scene_door_level_1: SceneDoor = $Doors/SceneDoorLevel1
+@onready var doors: Node2D = $Doors
 
 func _ready() -> void:
 	SceneManager.in_hub = true
@@ -23,12 +23,20 @@ func _ready() -> void:
 	else:
 		title.hide()
 		start_button.hide()
-	scene_door_level_1.unlock_door()
+	ProgressManager.unlock_updated.connect(_on_progress_updated)
+	figure_out_doors()
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("skip_dialogue") and start_button.pressed.is_connected(_on_start_pressed):
 		_on_start_pressed()
+
+
+func figure_out_doors() -> void:
+	for door in doors.get_children():
+		if door.door_num > 0 and door.door_num <= 4:
+			if ProgressManager.door_unlocked[door.door_num]:
+				door.unlock_door()
 
 
 func _on_start_pressed() -> void:
@@ -43,3 +51,7 @@ func _on_start_pressed() -> void:
 	fade_tween.tween_property(title, "modulate", Color(1, 1, 1, 0), 1.0)
 	player.velocity.y = 0.1
 	start_button.pressed.disconnect(_on_start_pressed)
+
+
+func _on_progress_updated() -> void:
+	figure_out_doors()
