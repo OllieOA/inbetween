@@ -152,6 +152,8 @@ func _ready() -> void:
 	
 	PlayerLocationCache.player_ref = self
 	SignalBus.player_caught.connect(_on_player_caught)
+	SignalBus.dialogue_triggered.connect(_on_dialogue_triggered)
+	dialogue_display.conversation_complete.connect(_on_conversation_complete)
 
 
 func _process(delta: float) -> void:
@@ -350,6 +352,10 @@ func modify_gravity(curr_gravity: float) -> float:
 	return curr_gravity
 
 
+func start_dialogue() -> void:
+	dialogue_display.load_conversation(PlayerLocationCache.guide_ref.curr_loaded_dialogue)
+
+
 func play_land_particles() -> void:
 	land_emitter_l.emitting = true
 	land_emitter_r.emitting = true
@@ -361,6 +367,7 @@ func set_camera_override(new_offset: Vector2) -> void:
 
 
 func remove_camera_override() -> void:
+	print("REMOVING CAMERA OVERRIDE")
 	camera_override_active = false
 
 
@@ -374,6 +381,15 @@ func _on_wall_grab_timeout() -> void:
 
 func _on_player_caught() -> void:
 	change_state(states.caught)
+
+
+func _on_dialogue_triggered() -> void:
+	change_state(states.dialogue)
+	start_dialogue()
+
+
+func _on_conversation_complete() -> void:
+	change_state(states.idle)
 
 
 func crash_next_frame():

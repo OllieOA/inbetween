@@ -1,7 +1,68 @@
-[gd_resource type="Resource" script_class="BaseConversation" load_steps=2 format=3 uid="uid://56rtti7v3m4i"]
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=15 format=3 uid="uid://56rtti7v3m4i"]
 
+[ext_resource type="Script" path="res://player/dialogue/base_dialogue.gd" id="1_pg08p"]
 [ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_tosei"]
+
+[sub_resource type="Resource" id="Resource_dbbkk"]
+script = ExtResource("1_pg08p")
+speaker = 0
+dialogue = "Hi.. there seems to be a mistake? I think I was.. a person a few seconds ago?"
+
+[sub_resource type="Resource" id="Resource_3br0y"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "OH! A new trial participant! How exciting!"
+
+[sub_resource type="Resource" id="Resource_oioyc"]
+script = ExtResource("1_pg08p")
+speaker = 0
+dialogue = "What? Why do I need to do a trial? Also.. are you a duck?"
+
+[sub_resource type="Resource" id="Resource_7wcb5"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "What's a duck?"
+
+[sub_resource type="Resource" id="Resource_yt28y"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "Nevermind. You are in the Inbetween. The mighty powers that be can't figure out where you will spend the rest of eternity."
+
+[sub_resource type="Resource" id="Resource_b3jnp"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "So! They have devised these tests to cover off the parts of your life that they can't make a decision on. For you, this seems to be.. critical thinking and problem solving!"
+
+[sub_resource type="Resource" id="Resource_0jt1i"]
+script = ExtResource("1_pg08p")
+speaker = 0
+dialogue = "What does that have to do with morality? And why is limbo guarded by a duck?!"
+
+[sub_resource type="Resource" id="Resource_w5smw"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "I do not have the slightest idea what you mean on all of those points. Just prove to them that you can solve some problems and you can get out of here."
+
+[sub_resource type="Resource" id="Resource_q6lrv"]
+script = ExtResource("1_pg08p")
+speaker = 0
+dialogue = "To heaven?"
+
+[sub_resource type="Resource" id="Resource_wgtv8"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "Yeah maybe. Just go in through those doors and do the puzzles or whatever. I'm going to have some breadcrumbs, but I'll keep an eye on you."
+
+[sub_resource type="Resource" id="Resource_le2wd"]
+script = ExtResource("1_pg08p")
+speaker = 0
+dialogue = "So you DO know what a duck is!"
+
+[sub_resource type="Resource" id="Resource_h40k4"]
+script = ExtResource("1_pg08p")
+speaker = 1
+dialogue = "What?"
 
 [resource]
 script = ExtResource("1_tosei")
-conversation = Array[Resource("res://player/dialogue/base_dialogue.gd")]([])
+conversation = Array[ExtResource("1_pg08p")]([SubResource("Resource_dbbkk"), SubResource("Resource_3br0y"), SubResource("Resource_oioyc"), SubResource("Resource_7wcb5"), SubResource("Resource_yt28y"), SubResource("Resource_b3jnp"), SubResource("Resource_0jt1i"), SubResource("Resource_w5smw"), SubResource("Resource_q6lrv"), SubResource("Resource_wgtv8"), SubResource("Resource_le2wd"), SubResource("Resource_h40k4")])

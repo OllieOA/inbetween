@@ -9,6 +9,8 @@ extends Node
 @onready var hide: Node = $Hide
 @onready var kill: Node = $Kill
 @onready var caught: Node = $Caught
+@onready var dialogue: Node = $Dialogue
+
 
 var all_states: Dictionary = {}
 

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BaseConversation" load_steps=6 format=3 uid="uid://uqhiftyj8epe"]
+
+[ext_resource type="Script" path="res://player/dialogue/base_dialogue.gd" id="1_luic2"]
+[ext_resource type="Script" path="res://player/dialogue/base_conversation.gd" id="1_o74bm"]
+
+[sub_resource type="Resource" id="Resource_7iq5f"]
+script = ExtResource("1_luic2")
+speaker = 1
+dialogue = "There's nothing back here.. you need to start the trials over on the other side of the room."
+
+[sub_resource type="Resource" id="Resource_rxuvu"]
+script = ExtResource("1_luic2")
+speaker = 0
+dialogue = "Okay.. Hey unrelated question.. Do you have feathers under that robe?"
+
+[sub_resource type="Resource" id="Resource_n44kx"]
+script = ExtResource("1_luic2")
+speaker = 1
+dialogue = "You can't just ask that."
+
+[resource]
+script = ExtResource("1_o74bm")
+conversation = Array[ExtResource("1_luic2")]([SubResource("Resource_7iq5f"), SubResource("Resource_rxuvu"), SubResource("Resource_n44kx")])

@@ -4,6 +4,7 @@ var player_state: State
 var player_test_points: PackedVector2Array = []
 var new_player_test_points: PackedVector2Array = []
 var player_ref: Player
+var guide_ref: Guide
 
 const NUM_POINTS_TO_CACHE: int = 5
 

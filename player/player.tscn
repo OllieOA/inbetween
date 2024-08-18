@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://beh3pcuvwk2tj"]
+[gd_scene load_steps=29 format=3 uid="uid://beh3pcuvwk2tj"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_fyr3b"]
 [ext_resource type="Shader" path="res://stages/components/seekers/sub_pixel_smoother.gdshader" id="2_am6fu"]
@@ -19,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://d2na5pjeyn7im" path="res://common/inner_radial_progress.png" id="14_43hnd"]
 [ext_resource type="Texture2D" uid="uid://c2ljr512ydklg" path="res://player/art/player_light.png" id="14_awpo2"]
 [ext_resource type="PackedScene" uid="uid://clu2rejsiclai" path="res://player/dialogue/dialogue_display.tscn" id="14_k2vxc"]
+[ext_resource type="PackedScene" uid="uid://b5b3a565qyif6" path="res://player/states/dialogue.tscn" id="14_rlae0"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_12ve8"]
 light_mode = 1
@@ -131,6 +132,8 @@ script = ExtResource("3_cfiw0")
 [node name="Kill" parent="States" instance=ExtResource("11_van3l")]
 
 [node name="Caught" parent="States" instance=ExtResource("12_o6ld0")]
+
+[node name="Dialogue" parent="States" instance=ExtResource("14_rlae0")]
 
 [node name="StateLabel" type="Label" parent="."]
 visible = false

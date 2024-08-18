@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1pneifs54uxk"]
+
+[ext_resource type="Script" path="res://entities/dialogue_trigger.gd" id="1_jcdql"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_enn75"]
+size = Vector2(512, 512)
+
+[node name="DialogueTrigger" type="Area2D"]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_jcdql")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_enn75")

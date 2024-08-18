@@ -6,7 +6,6 @@ extends Node2D
 
 @onready var scene_door_level_1: SceneDoor = $Doors/SceneDoorLevel1
 
-
 func _ready() -> void:
 	SceneManager.in_hub = true
 	start_button.pressed.connect(_on_start_pressed)
@@ -27,6 +26,11 @@ func _ready() -> void:
 	scene_door_level_1.unlock_door()
 
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("skip_dialogue") and start_button.pressed.is_connected(_on_start_pressed):
+		_on_start_pressed()
+
+
 func _on_start_pressed() -> void:
 	player.can_gravity = true
 	player.can_move = true
@@ -38,3 +42,4 @@ func _on_start_pressed() -> void:
 	player.remove_camera_override()
 	fade_tween.tween_property(title, "modulate", Color(1, 1, 1, 0), 1.0)
 	player.velocity.y = 0.1
+	start_button.pressed.disconnect(_on_start_pressed)

@@ -20,7 +20,7 @@ var door_num_lookup: Dictionary = {
 @export var overhead_text: String
 
 var can_be_activated: bool = false
-var door_active: bool = true
+var door_active: bool = false
  
 @onready var door_sprite: Sprite2D = $DoorSprite
 @onready var icon_sprite: Sprite2D = $IconSprite
@@ -41,7 +41,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("activate_door") and can_be_activated:
+	if event.is_action_pressed("activate_door") and door_active:
 		print("TRYING TO CHANGE TO ", next_scene)
 		SceneManager.change_scene_to(next_scene)
 
@@ -58,8 +58,10 @@ func unlock_door() -> void:
 func _on_body_entered(body: Node2D) -> void:
 	if can_be_activated:
 		stats_label.show()
+		door_active = true
 
 
 func _on_body_exited(body: Node2D) -> void:
 	stats_label.hide()
+	door_active = false
 	

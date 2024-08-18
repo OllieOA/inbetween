@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://0k5443lkbj7v"]
+[gd_scene load_steps=13 format=3 uid="uid://0k5443lkbj7v"]
 
 [ext_resource type="Script" path="res://stages/levels/hub_world.gd" id="1_3on8l"]
 [ext_resource type="PackedScene" uid="uid://h3r8uu714dt7" path="res://stages/components/tilemaps/base_level_tiles.tscn" id="1_je6dd"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bn1ricsd7iabe" path="res://stages/components/doors/scene_door.tscn" id="7_ik1ko"]
 [ext_resource type="PackedScene" uid="uid://46deti83n4un" path="res://stages/components/decor/hanging_lamp.tscn" id="7_l2foi"]
 [ext_resource type="PackedScene" uid="uid://d0e0j3ckmwnhe" path="res://entities/guide.tscn" id="7_s4x1h"]
+[ext_resource type="PackedScene" uid="uid://c1pneifs54uxk" path="res://entities/dialogue_trigger.tscn" id="9_2687q"]
 
 [node name="HubWorld" type="Node2D"]
 script = ExtResource("1_3on8l")
@@ -70,6 +71,9 @@ position = Vector2(-113, 1468)
 
 [node name="Player" parent="." instance=ExtResource("3_xsini")]
 position = Vector2(208, 692)
+
+[node name="DialogueTrigger" parent="." instance=ExtResource("9_2687q")]
+position = Vector2(-240, 1414)
 
 [node name="StartButton" type="CanvasLayer" parent="."]
 
